@@ -2,12 +2,14 @@
 #include <stdio.h>
 #include <random>
 #include <time.h>
+#include <regex>
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
     srand(time(0));
+
     char field[12][12] = {
         {' ','A','B','C','D','E','F','G','H','I','J', ' '},
         {'1','0','0','0','0','0','0','0','0','0','0', ' '},
@@ -71,12 +73,34 @@ int main(int argc, char const *argv[])
             }
         }
     }
-    cout << "\n";
-    for(int i=0; i<sizeof(field[i]); i++) {
-        for(int j=0; j<sizeof(field[i]); j++) {
-            cout << field[i][j] << " ";
-        }
+
+    string input;
+
+    while(true) {
         cout << "\n";
+        for(int i=0; i<sizeof(field[i]); i++) {
+            for(int j=0; j<sizeof(field[i]); j++) {
+                if(i!=0 && j!=0) {
+                    cout << "\e[42m";
+                }
+
+                cout << field[i][j] << " ";
+            }
+            cout << "\e[0m\n";
+        }
+
+        cin >> input;
+        int row = input[0] - (int)'A'+1;
+        int col = input[1] - 48;
+        cout << "[" << row << "]";
+        cout << "[" << col << "]";
+        cout << field[row][col];
+
+        if(field[row][col] == 'X') {
+            cout << "\nYou tripped a mine!";
+            break;
+        }
+
     }
 
     return 0;
