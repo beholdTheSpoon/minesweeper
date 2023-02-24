@@ -6,70 +6,64 @@
 
 using namespace std;
 
+class tile {
+    public:
+        bool revealed = false;
+        char value = '0';
+        
+        void revealTile() {
+            //if()
+            this->revealed = true;
+        }
+};
+
+tile field[10][10];
+
 int main(int argc, char const *argv[])
 {
     srand(time(0));
-
-    char field[12][12] = {
-        {' ','A','B','C','D','E','F','G','H','I','J', ' '},
-        {'1','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'2','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'3','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'4','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'5','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'6','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'7','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'8','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'9','0','0','0','0','0','0','0','0','0','0', ' '},
-        {'0','0','0','0','0','0','0','0','0','0','0', ' '},
-        {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', ' '}
-    };
-
-
 
     for(int i=1; i<sizeof(field[i])-1; i++) {
         for(int j=1; j<sizeof(field[i])-1; j++) {
             int random = rand() % 4;
             if(random == 1 && (i>1 && j>1)) {
-                field[i][j] = 'X';
+                field[i][j].value = 'X';
             }
-            cout << field[i][j] << " ";
+            cout << field[i][j].value << " ";
         }
         cout << "\n";
     }
 
-    int counter;
-
     for(int i=1; i<sizeof(field[i])-1; i++) {
         for(int j=1; j<sizeof(field[i])-1; j++) {  
-            counter = 0;
-            if(field[i][j] != 'X') {
+            int counter = 0;
+            if(field[i][j].value != 'X') {
                 //yandere dev moment
-                if(field[i-1][j-1] == 'X') {
+                if(field[i-1][j-1].value == 'X') {
                     counter++;
                 }
-                if(field[i-1][j] == 'X') {
+                if(field[i-1][j].value == 'X') {
                     counter++;
                 }
-                if(field[i-1][j+1] == 'X') {
+                if(field[i-1][j+1].value == 'X') {
                     counter++;
                 }
-                if(field[i][j+1] == 'X') {
+                if(field[i][j+1].value == 'X') {
                     counter++;
                 }
-                if(field[i+1][j+1] == 'X') {
+                if(field[i+1][j+1].value == 'X') {
                     counter++;
                 }
-                if(field[i+1][j] == 'X') {
+                if(field[i+1][j].value == 'X') {
                     counter++;
                 }
-                if(field[i+1][j-1] == 'X') {
+                if(field[i+1][j-1].value == 'X') {
                     counter++;
                 }
-                if(field[i][j-1] == 'X') {
+                if(field[i][j-1].value == 'X') {
                     counter++;
                 }
-                field[i][j] = char(counter + 48);
+                field[i][j].value = char(counter + 48);
             }
         }
     }
@@ -84,19 +78,19 @@ int main(int argc, char const *argv[])
                     cout << "\e[42m";
                 }
 
-                cout << field[i][j] << " ";
+                cout << field[i][j].value << " ";
             }
             cout << "\e[0m\n";
         }
 
         cin >> input;
-        int row = input[0] - (int)'A'+1;
-        int col = input[1] - 48;
-        cout << "[" << row << "]";
-        cout << "[" << col << "]";
-        cout << field[row][col];
+       int row = input[0] - (int)'A'+1;
+       int col = input[1] - 48;
+       cout << "[" << row << "]";
+       cout << "[" << col << "]";
+       cout << field[row][col].value;
 
-        if(field[row][col] == 'X') {
+        if(field[row][col].value == 'X') {
             cout << "\nYou tripped a mine!";
             break;
         }
