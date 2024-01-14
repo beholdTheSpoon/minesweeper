@@ -1,2 +1,2 @@
 # minesweeper
-*very scuffed*
+*abandoned project after not having time*
